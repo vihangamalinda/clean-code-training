@@ -8,26 +8,48 @@ public class MyTestGildedRoseADefaultItemTest {
 
 
     public static final String DEFAULT_ITEM_TYPE = "DEFAULT_ITEM";
-    public static final int NOT_EXPIRED_SELLING_COUNT = 15;
+    public static final int NOT_EXPIRED_SELLIN = 15;
     public static final int DEFAULT_QUALITY = 3;
+    private final int EXPIRED_SELLIN = -1;
 
     @Test
     public void testUpdateQuality_whenDefaultItem_thenQualityAndSellDecreasedByOne() {
 //        Arrange
-        Item item = createItem(DEFAULT_ITEM_TYPE, NOT_EXPIRED_SELLING_COUNT, DEFAULT_QUALITY);
-        GildedRose app = getGildedRose(new Item[]{item});
+        Item[] items = new Item[]{createItem(DEFAULT_ITEM_TYPE, NOT_EXPIRED_SELLIN, DEFAULT_QUALITY)};
+        GildedRose app = createGildedRose(items);
 //        Act
         app.updateQuality();
 //        Assert
-        Item expected = createItem(DEFAULT_ITEM_TYPE, NOT_EXPIRED_SELLING_COUNT - 1, DEFAULT_QUALITY - 1);
+        Item expected = createItem(DEFAULT_ITEM_TYPE, NOT_EXPIRED_SELLIN - 1, DEFAULT_QUALITY - 1);
         assertDefaultItem(expected, app.items[0]);
     }
 
-    private static Item createItem(String defaultItemType, int notExpiredSellingCount, int defaultQuality) {
-        return new Item(defaultItemType, notExpiredSellingCount, defaultQuality);
+    /**
+     * Method to test the variation in quality of the item for the non expired
+     * Item.
+     *
+     * The quality should decrease by 2 when the item is expired(Sell in  < 0) and sell in should decrease by 1.
+     *
+     */
+    @Test
+    public void testUpdateQuality_whenItemSellLessThanZero_then() {
+//        Arrange
+        Item[] items = new Item[]{createItem(DEFAULT_ITEM_TYPE, EXPIRED_SELLIN, DEFAULT_QUALITY)};
+        GildedRose app = createGildedRose(items);
+//        Act
+        app.updateQuality();
+//        Asset
+        Item expected = createItem(DEFAULT_ITEM_TYPE, EXPIRED_SELLIN - 1, DEFAULT_QUALITY - 2);
+
+        Item actual = app.items[0];
+        assertDefaultItem(expected, actual);
     }
 
-    private static GildedRose getGildedRose(Item[] items) {
+    private static Item createItem(String defaultItemType, int notExpiredSellingCount, int quality) {
+        return new Item(defaultItemType, notExpiredSellingCount, quality);
+    }
+
+    private static GildedRose createGildedRose(Item[] items) {
         return new GildedRose(items);
     }
 
