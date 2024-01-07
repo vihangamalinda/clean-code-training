@@ -23,13 +23,7 @@ public class MyTestGildedRoseADefaultItemTest {
 //        Assert
         assertDefaultItem(expected, app.items[0]);
     }
-
-    /**
-     * Method to test the variation in quality of the item for the non expired
-     * Item.
-     * <p>
-     * The quality should decrease by 2 when the item is expired(Sell in  < 0) and sell in should decrease by 1.
-     */
+    
     @Test
     public void testUpdateQuality_whenItemSellLessThanZero_thenDecreaseSellInByOneAndQualityByTwo() {
 //        Arrange
