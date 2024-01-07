@@ -31,7 +31,7 @@ public class MyTestGildedRoseADefaultItemTest {
      * The quality should decrease by 2 when the item is expired(Sell in  < 0) and sell in should decrease by 1.
      */
     @Test
-    public void testUpdateQuality_whenItemSellLessThanZero_then() {
+    public void testUpdateQuality_whenItemSellLessThanZero_thenDecreaseSellInByOneAndQualityByTwo() {
 //        Arrange
         Item[] items = new Item[]{createItem(DEFAULT_ITEM_TYPE, EXPIRED_SELLIN, DEFAULT_QUALITY)};
         Item expected = createItem(DEFAULT_ITEM_TYPE, EXPIRED_SELLIN - 1, DEFAULT_QUALITY - 2);
