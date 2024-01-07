@@ -17,32 +17,30 @@ public class MyTestGildedRoseADefaultItemTest {
 //        Arrange
         Item[] items = new Item[]{createItem(DEFAULT_ITEM_TYPE, NOT_EXPIRED_SELLIN, DEFAULT_QUALITY)};
         GildedRose app = createGildedRose(items);
+        Item expected = createItem(DEFAULT_ITEM_TYPE, NOT_EXPIRED_SELLIN - 1, DEFAULT_QUALITY - 1);
 //        Act
         app.updateQuality();
 //        Assert
-        Item expected = createItem(DEFAULT_ITEM_TYPE, NOT_EXPIRED_SELLIN - 1, DEFAULT_QUALITY - 1);
         assertDefaultItem(expected, app.items[0]);
     }
 
     /**
      * Method to test the variation in quality of the item for the non expired
      * Item.
-     *
+     * <p>
      * The quality should decrease by 2 when the item is expired(Sell in  < 0) and sell in should decrease by 1.
-     *
      */
     @Test
     public void testUpdateQuality_whenItemSellLessThanZero_then() {
 //        Arrange
         Item[] items = new Item[]{createItem(DEFAULT_ITEM_TYPE, EXPIRED_SELLIN, DEFAULT_QUALITY)};
+        Item expected = createItem(DEFAULT_ITEM_TYPE, EXPIRED_SELLIN - 1, DEFAULT_QUALITY - 2);
+
         GildedRose app = createGildedRose(items);
 //        Act
         app.updateQuality();
 //        Asset
-        Item expected = createItem(DEFAULT_ITEM_TYPE, EXPIRED_SELLIN - 1, DEFAULT_QUALITY - 2);
-
-        Item actual = app.items[0];
-        assertDefaultItem(expected, actual);
+        assertDefaultItem(expected, app.items[0]);
     }
 
     private static Item createItem(String defaultItemType, int notExpiredSellingCount, int quality) {
