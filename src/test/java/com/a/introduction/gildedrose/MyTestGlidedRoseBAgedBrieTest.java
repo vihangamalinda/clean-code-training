@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MyTestGlidedRoseBAgedBrieTest {
 
 
-    public static final int AGED_BRIE_SELL_IN = 4;
-    public static final int AGED_BRIE_QUALITY = 3;
-    public static final int CURRENT_SELL_IN = -1;
-    public static final int CURRENT_AGED_BRIE_QUALITY = 3;
-    public static final int ULTIMATE_QUALITY_AGED_BRIE_SELL_IN = 4;
-    public static final int ULTIMATE_AGED_BRIE_QUALITY = 50;
+    private static final int AGED_BRIE_SELL_IN = 4;
+    private static final int AGED_BRIE_QUALITY = 3;
+    private static final int CURRENT_SELL_IN = -1;
+    private static final int CURRENT_AGED_BRIE_QUALITY = 3;
+    private static final int ULTIMATE_QUALITY_AGED_BRIE_SELL_IN = 4;
+    private static final int ULTIMATE_AGED_BRIE_QUALITY = 50;
     private final String AGED_BRIE_ITEM = "Aged Brie";
 
     @Test

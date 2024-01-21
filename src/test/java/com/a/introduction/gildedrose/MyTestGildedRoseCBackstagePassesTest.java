@@ -6,15 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MyTestGildedRoseCBackstagePassesTest {
 
-    public static final String BACKSTAGE_PASSES_TO_A_TAFKAL80_ETC_CONCERT = "Backstage passes to a TAFKAL80ETC concert";
-    public static final int SELL_IN_WITH_LESS_DEMAND = 15;
-    public static final int QUALITY_ON_LESS_DEMAND = 3;
-    public static final int SELL_IN_WITH_MID_DEMAND = 7;
-    public static final int QUALITY_ON_MID_DEMAND = 3;
-    public static final int SELL_IN_WITH_HIGH_DEMAND = 4;
-    public static final int QUALITY_ON_HIGH_DEMAND = 3;
-    public static final int QUALITY_AFTER_CONCERT = QUALITY_ON_HIGH_DEMAND;
-    public static final int SELL_IN_AFTER_CONCERT = 0;
+    private static final String BACKSTAGE_PASSES_TO_A_TAFKAL80_ETC_CONCERT = "Backstage passes to a TAFKAL80ETC concert";
+    private static final int SELL_IN_WITH_LESS_DEMAND = 15;
+    private static final int QUALITY_ON_LESS_DEMAND = 3;
+    private static final int SELL_IN_WITH_MID_DEMAND = 7;
+    private static final int QUALITY_ON_MID_DEMAND = 3;
+    private static final int SELL_IN_WITH_HIGH_DEMAND = 4;
+    private static final int QUALITY_ON_HIGH_DEMAND = 3;
+    private static final int QUALITY_AFTER_CONCERT = QUALITY_ON_HIGH_DEMAND;
+    private static final int SELL_IN_AFTER_CONCERT = 0;
 
     @Test
     public void testUpdateQuality_WhenSellInMoreThanTenWithQualityThree_thenIncreaseQualityByOneAndDecreaseSellInByOne() {

@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MyTestGildedRoseADefaultItemTest {
 
 
-    public static final String DEFAULT_ITEM_TYPE = "DEFAULT_ITEM";
-    public static final int NOT_EXPIRED_SELLIN = 15;
-    public static final int DEFAULT_QUALITY = 3;
+    private static final String DEFAULT_ITEM_TYPE = "DEFAULT_ITEM";
+    private static final int NOT_EXPIRED_SELLIN = 15;
+    private static final int DEFAULT_QUALITY = 3;
     private final int EXPIRED_SELLIN = -1;
 
     @Test
