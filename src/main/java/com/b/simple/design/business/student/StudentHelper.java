@@ -1,5 +1,7 @@
 package com.b.simple.design.business.student;
 
+import static com.b.simple.design.business.student.Grade.*;
+
 public class StudentHelper {
 
     public static final int GRADE_B_UPPER_LIMIT = 80;
@@ -21,11 +23,6 @@ public class StudentHelper {
     private static final int LOWER_LIMIT_GRADE_A_EXCLUSIVE_Q2 = 91;
     private static final int LOWER_LIMIT_GRADE_B_EXCLUSIVE_Q2 = 51;
     private static final int EXTRA_LIMIT_FOR_MATH_Q2 = 5;
-    private static final String GRADE_C = "C";
-    private static final String GRADE_A = "A";
-    private static final String GRADE_B = "B";
-
-
 
     /* PROBLEM 2 */
 	/*
@@ -36,9 +33,9 @@ public class StudentHelper {
 
     public String getGrade(int mark, boolean isMaths) {
         int extraLimit = isMaths ? EXTRA_LIMIT_FOR_MATH_Q2 : 0;
-        if (mark >= LOWER_LIMIT_GRADE_A_EXCLUSIVE_Q2 + extraLimit) return GRADE_A;
-        if (mark >= LOWER_LIMIT_GRADE_B_EXCLUSIVE_Q2 + extraLimit) return GRADE_B;
-        return GRADE_C;
+        if (mark >= LOWER_LIMIT_GRADE_A_EXCLUSIVE_Q2 + extraLimit) return GRADE_A.toString();
+        if (mark >= LOWER_LIMIT_GRADE_B_EXCLUSIVE_Q2 + extraLimit) return GRADE_B.toString();
+        return GRADE_C.toString();
     }
 
     /*  PROBLEM 3
@@ -63,4 +60,24 @@ public class StudentHelper {
         return "MAYBE";
     }
 
+
 }
+
+//    Grade enum
+enum Grade {
+    GRADE_A("A"),
+    GRADE_B("B"),
+    GRADE_C("C");
+
+    private final String label;
+
+    Grade(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public String toString() {
+        return this.label;
+    }
+}
+
