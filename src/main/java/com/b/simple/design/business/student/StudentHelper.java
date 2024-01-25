@@ -18,8 +18,8 @@ public class StudentHelper {
     }
 
     //	Question 2 Constant
-    private static final int LOWER_LIMIT_GRADE_A_EXCLUSIVE_Q2 = 90;
-    private static final int LOWER_LIMIT_GRADE_B_EXCLUSIVE_Q2 = 50;
+    private static final int LOWER_LIMIT_GRADE_A_EXCLUSIVE_Q2 = 91;
+    private static final int LOWER_LIMIT_GRADE_B_EXCLUSIVE_Q2 = 51;
     private static final int EXTRA_LIMIT_FOR_MATH_Q2 = 5;
     private static final String GRADE_C = "C";
     private static final String GRADE_A = "A";
@@ -34,21 +34,11 @@ public class StudentHelper {
 	Except for Maths where marks to get a Grade are 5 higher than required for other subjects.
 	*/
 
-	public String getGrade(int mark, boolean isMaths) {
-		int extraLimit = isMaths ? EXTRA_LIMIT_FOR_MATH_Q2 : 0;
-		if (isGradeA(mark, extraLimit)) return GRADE_A;
-		if (isBGrade(mark, extraLimit)) return GRADE_B;
-		return GRADE_C;
-	}
-
-    private boolean isGradeA(int mark, int extraLimit) {
-        int lowerLimitForAGrade = LOWER_LIMIT_GRADE_A_EXCLUSIVE_Q2 + extraLimit;
-        return mark > lowerLimitForAGrade;
-    }
-
-    private boolean isBGrade(int mark, int extraLimit) {
-        int lowerLimitGradeB = LOWER_LIMIT_GRADE_B_EXCLUSIVE_Q2 + extraLimit;
-        return mark > lowerLimitGradeB && mark < LOWER_LIMIT_GRADE_A_EXCLUSIVE_Q2;
+    public String getGrade(int mark, boolean isMaths) {
+        int extraLimit = isMaths ? EXTRA_LIMIT_FOR_MATH_Q2 : 0;
+        if (mark >= LOWER_LIMIT_GRADE_A_EXCLUSIVE_Q2 + extraLimit) return GRADE_A;
+        if (mark >= LOWER_LIMIT_GRADE_B_EXCLUSIVE_Q2 + extraLimit) return GRADE_B;
+        return GRADE_C;
     }
 
     /*  PROBLEM 3
