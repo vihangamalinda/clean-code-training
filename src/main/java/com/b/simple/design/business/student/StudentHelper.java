@@ -62,14 +62,23 @@ public class StudentHelper {
 
     public String willQualifyForQuiz(int marks1, int marks2, boolean isMaths) {
         int extraLimit = isMaths ? EXTRA_LIMIT_FOR_MATH_Q3 : 0;
-        if ((marks1 <= UNQUALIFIED_UPPER_LIMIT + extraLimit) || (marks2 <= UNQUALIFIED_UPPER_LIMIT + extraLimit))
+        int finalUnQualifiedUpperLimit = UNQUALIFIED_UPPER_LIMIT + extraLimit;
+        int finalQualifiedUpperLimit = QUALIFIED_UPPER_LIMIT + extraLimit;
+
+        if (isUnQualified(marks1, marks2, finalUnQualifiedUpperLimit))
             return NO.toString();
-        if ((marks1 >= QUALIFIED_UPPER_LIMIT + extraLimit) || (marks2 >= QUALIFIED_UPPER_LIMIT + extraLimit))
+        if (isQualified(marks1, marks2, finalQualifiedUpperLimit))
             return YES.toString();
         return MAYBE.toString();
     }
 
+    private static boolean isQualified(int marks1, int marks2, int limit) {
+        return (marks1 >= limit) || (marks2 >= limit);
+    }
 
+    private static boolean isUnQualified(int marks1, int marks2, int limit) {
+        return marks1 <= limit || marks2 <= limit;
+    }
 }
 
 //    Grade enum
