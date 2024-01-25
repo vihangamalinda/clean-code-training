@@ -1,12 +1,36 @@
 package com.b.simple.design.business.student;
 public class StudentHelper {
 
-	/* PROBLEM 1 */	
+	private static final int ALL_SUBJECT_GRADE_B_LOWER_LIMIT = 51;
+	public static final int ALL_SUBJECT_GRADE_B_UPPER_LIMIT_EXCEPT_MATH = 80;
+	public static final int MATH_GRADE_B_UPPER_LIMIT = 90;
+
+	/* PROBLEM 1 */
 	/*
-	* You get a grade B if marks are between 51 and 80 (both inclusive). Except for Maths where the upper limit is increased by 10.
-	*/
+	 * You get a grade B if marks are between 51 and 80 (both inclusive). Except for Maths where the upper limit is increased by 10.
+	 */
 	public boolean isGradeB(int marks, boolean isMaths) {
-		return isMaths ? marks>=51 && marks<=90 : marks>=51 && marks<=80; 
+		return isMaths ? isMathGradeB(marks) : isGradeBExceptMath(marks);
+	}
+
+	private static boolean isGradeBExceptMath(int marks) {
+		return isGreaterThanOrEqualToGradeBLowerLimit(marks) && isLessThanOrEqualToGradeBUpperLimitExceptMath(marks);
+	}
+
+	private static boolean isMathGradeB(int marks) {
+		return isGreaterThanOrEqualToGradeBLowerLimit(marks) && isLessThanOrEqualToMathGradeBUpperLimit(marks);
+	}
+
+	private static boolean isLessThanOrEqualToMathGradeBUpperLimit(int marks) {
+		return marks <= MATH_GRADE_B_UPPER_LIMIT;
+	}
+
+	private static boolean isLessThanOrEqualToGradeBUpperLimitExceptMath(int marks) {
+		return marks <= ALL_SUBJECT_GRADE_B_UPPER_LIMIT_EXCEPT_MATH;
+	}
+
+	private static boolean isGreaterThanOrEqualToGradeBLowerLimit(int marks) {
+		return marks >= ALL_SUBJECT_GRADE_B_LOWER_LIMIT;
 	}
 
 	/* PROBLEM 2 */
