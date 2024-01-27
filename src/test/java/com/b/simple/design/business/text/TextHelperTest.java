@@ -10,14 +10,14 @@ import com.b.simple.design.business.text.TextHelper;
 public class TextHelperTest {
 
 	TextHelper helper = new TextHelper();
-	
+
 	@Test
-	@Disabled
 	public void testSwapLastTwoCharacters() {
-		assertEquals("",helper.swapLastTwoCharacters(""));
-		assertEquals("A",helper.swapLastTwoCharacters("A"));
-		assertEquals("BA",helper.swapLastTwoCharacters("AB"));
-		assertEquals("RANI",helper.swapLastTwoCharacters("RAIN"));
+		assertEquals("", helper.swapLastTwoCharacters(null));
+		assertEquals("", helper.swapLastTwoCharacters(""));
+		assertEquals("A", helper.swapLastTwoCharacters("A"));
+		assertEquals("BA", helper.swapLastTwoCharacters("AB"));
+		assertEquals("RANI", helper.swapLastTwoCharacters("RAIN"));
 	}
 
 	@Test
