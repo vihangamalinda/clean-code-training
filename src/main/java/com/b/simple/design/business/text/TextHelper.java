@@ -8,9 +8,10 @@ public class TextHelper {
         if (stringLength <= 1) {
             return str;
         }
-        int lastIndex = stringLength - 1;
-        int oneBeforeLastIndex = stringLength - 2;
-        return str.substring(0, oneBeforeLastIndex) + str.charAt(lastIndex) + str.charAt(oneBeforeLastIndex);
+        String stringWithExcludedLastTwoChars = str.substring(0, stringLength - 2);
+        char lastChar = str.charAt(stringLength - 1);
+        char oneBeforeLastChar = str.charAt(stringLength - 2);
+        return stringWithExcludedLastTwoChars + lastChar + oneBeforeLastChar;
     }
 
     public String truncateAInFirst2Positions(String str) {
