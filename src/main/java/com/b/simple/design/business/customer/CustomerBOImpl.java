@@ -16,16 +16,20 @@ public class CustomerBOImpl implements CustomerBO {
 			throws DifferentCurrenciesException {
 
 		if (isProductsEmpty(products)) return getAmount(BigDecimal.ZERO, Currency.EURO);
-		
+
 		productsCurrencyValidation(products);
 
-        return getProductsSum(products);
+		return getProductsSum(products);
 	}
 
 	private static AmountImpl getProductsSum(List<Product> products) {
-		BigDecimal productsSum = products.stream().map(product -> product.getAmount().getValue()).reduce(BigDecimal.ZERO, BigDecimal::add);
-		Currency productCurrency = getProductCurrency(products.get(0));
-		return getAmount(productsSum, productCurrency);
+		BigDecimal productsSum = products.stream().map(CustomerBOImpl::getAmountValue).reduce(BigDecimal.ZERO, BigDecimal::add);
+		Currency firstProductCurrency = getProductCurrency(products.get(0));
+		return getAmount(productsSum, firstProductCurrency);
+	}
+
+	private static BigDecimal getAmountValue(Product product) {
+		return product.getAmount().getValue();
 	}
 
 	private static AmountImpl getAmount(BigDecimal temp, Currency euro) {
