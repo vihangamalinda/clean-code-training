@@ -23,20 +23,29 @@ public class Movie {
     Where x represents any digit between 0 and 9, and y represents 
     any digit between 1 and 4*/
     public boolean isValidRating() {
-        if (!isRatingNull()) {
-            if (getSubRatingString(0, 1).equalsIgnoreCase(GRADE_B.toString())
-                    && isSizeValid(2)) {
-               return isValidNumericForGradeB() ;
-            } else {
-                String string = GRADE_A.toString();
-                if (getSubRatingString(0, 1).equalsIgnoreCase(string)
-                        && isSizeValid(3)
-                        && isValidNumeric(getSubRatingString(1, 3)))
-                    return true;
-            }
+        return isRatingNotNull()
+                && isValidGradRating();
 
-        }
-        return false;
+    }
+
+    private boolean isValidGradRating() {
+        return isValidGroupBRating() ||
+                isValidGroupARating();
+    }
+
+    private boolean isValidGroupBRating() {
+        return isGrading(GRADE_B)
+                && isSizeValid(2) && isValidNumericForGradeB();
+    }
+
+    private boolean isValidGroupARating() {
+        return isGrading(GRADE_A)
+                && isSizeValid(3)
+                && isValidNumeric(getSubRatingString(1, 3));
+    }
+
+    private boolean isGrading(MovieGrade movieGrade) {
+        return getSubRatingString(0, 1).equalsIgnoreCase(movieGrade.toString());
     }
 
     private boolean isValidNumericForGradeB() {
@@ -51,8 +60,8 @@ public class Movie {
         return this.getRating().length() == size;
     }
 
-    private boolean isRatingNull() {
-        return this.getRating() == null;
+    private boolean isRatingNotNull() {
+        return this.getRating() != null;
     }
 
     private static boolean isValidNumeric(String subRatingString) {
