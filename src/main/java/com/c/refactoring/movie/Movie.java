@@ -35,28 +35,30 @@ public class Movie {
 
     private boolean isValidGroupBRating() {
         return isGrading(GRADE_B)
-                && isSizeValid(2) && isValidNumericForGradeB();
+                && isRatingSizeValid(2) && isValidNumericForGradeB();
     }
 
     private boolean isValidGroupARating() {
+        String secondAndThirdCharacters = getSubRatingString(1, 3);
         return isGrading(GRADE_A)
-                && isSizeValid(3)
-                && isValidNumeric(getSubRatingString(1, 3));
+                && isRatingSizeValid(3)
+                && isValidNumeric(secondAndThirdCharacters);
     }
 
     private boolean isGrading(MovieGrade movieGrade) {
-        return getSubRatingString(0, 1).equalsIgnoreCase(movieGrade.toString());
+        String firstCharacter = getSubRatingString(0, 1);
+        return firstCharacter.equalsIgnoreCase(movieGrade.toString());
     }
 
     private boolean isValidNumericForGradeB() {
-        String numericRatingString = getSubRatingString(1, 2);
+        String secondCharacter = getSubRatingString(1, 2);
 
-        if (!isValidNumeric(numericRatingString)) return false;
-        int numericRating = Integer.parseInt(numericRatingString);
+        if (!isValidNumeric(secondCharacter)) return false;
+        int numericRating = Integer.parseInt(secondCharacter);
         return (numericRating) > GRADE_B_LOWER_LIMIT && (numericRating) < GRADE_B_UPPER_LIMIT;
     }
 
-    private boolean isSizeValid(int size) {
+    private boolean isRatingSizeValid(int size) {
         return this.getRating().length() == size;
     }
 
@@ -71,7 +73,6 @@ public class Movie {
     private String getSubRatingString(int beginIndex, int endIndex) {
         return this.getRating().substring(beginIndex, endIndex);
     }
-
     public void setRating(String rating) {
         this.rating = rating;
     }
