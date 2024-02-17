@@ -14,30 +14,43 @@ public class CustomerBOImpl implements CustomerBO {
 	@Override
 	public Amount getCustomerProductsSum(List<Product> products)
 			throws DifferentCurrenciesException {
-		BigDecimal temp = BigDecimal.ZERO;
 
-		if (products.size() == 0)
-			return new AmountImpl(temp, Currency.EURO);
-
-		// Throw Exception If Any of the product has a currency different from
-		// the first product
-		Currency firstProductCurrency = products.get(0).getAmount()
-				.getCurrency();
-
-		for (Product product : products) {
-			boolean currencySameAsFirstProduct = product.getAmount()
-					.getCurrency().equals(firstProductCurrency);
-			if (!currencySameAsFirstProduct) {
-				throw new DifferentCurrenciesException();
-			}
-		}
-
-		// Calculate Sum of Products
-		for (Product product : products) {
-			temp = temp.add(product.getAmount().getValue());
-		}
+		if (isProductsEmpty(products)) return getAmount(BigDecimal.ZERO, Currency.EURO);
 		
-		// Create new product
-		return new AmountImpl(temp, firstProductCurrency);
+		productsCurrencyValidation(products);
+
+        return getProductsSum(products);
+	}
+
+	private static AmountImpl getProductsSum(List<Product> products) {
+		BigDecimal productsSum = products.stream().map(product -> product.getAmount().getValue()).reduce(BigDecimal.ZERO, BigDecimal::add);
+		Currency productCurrency = getProductCurrency(products.get(0));
+		return getAmount(productsSum, productCurrency);
+	}
+
+	private static AmountImpl getAmount(BigDecimal temp, Currency euro) {
+		return new AmountImpl(temp, euro);
+	}
+
+	private static void productsCurrencyValidation(List<Product> products) throws DifferentCurrenciesException {
+		Currency firstProductCurrency = getProductCurrency(products.get(0));
+		for (Product product : products) getProductValidated(firstProductCurrency, product);
+	}
+
+	private static void getProductValidated(Currency firstProductCurrency, Product product) throws DifferentCurrenciesException {
+		if (!isCurrencySameAsFirstProduct(product, firstProductCurrency)) throw new DifferentCurrenciesException();
+	}
+
+	private static boolean isCurrencySameAsFirstProduct(Product product, Currency firstProductCurrency) {
+		return getProductCurrency(product).equals(firstProductCurrency);
+	}
+
+	private static Currency getProductCurrency(Product products) {
+		return products.getAmount()
+				.getCurrency();
+	}
+
+	private static boolean isProductsEmpty(List<Product> products) {
+		return products.isEmpty();
 	}
 }
