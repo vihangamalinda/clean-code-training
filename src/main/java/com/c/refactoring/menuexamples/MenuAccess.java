@@ -7,15 +7,13 @@ public class MenuAccess {
     public void setAuthorizationsInEachMenus(
             List<MenuItem> menuItemsList, Role[] roles) {
 
-        for (int i = 0; i < menuItemsList.size(); i++) {
-            MenuItem menuItem = menuItemsList.get(i);
+        for (MenuItem menuItem : menuItemsList) {
             if (!isRoleNull(roles)) {
-                for (int j = 0; j < roles.length; j++) {
-                    String roleType = roles[j].getName();
-                    if (haveReadAccess(roleType, menuItem.getReadAccessRole()) && !Constants.WRITE.equals(menuItem.getAccess())) {
+                for (Role role:roles) {
+                    if (haveReadAccess(role.getName(), menuItem.getReadAccessRole()) && !Constants.WRITE.equals(menuItem.getAccess())) {
                         setMenuItemPermission(menuItem, Constants.READ);
                     } else {
-                        if (haveWriteAccess(roleType, menuItem.getWriteAccessRole())) {
+                        if (haveWriteAccess(role.getName(), menuItem.getWriteAccessRole())) {
                             setMenuItemPermission(menuItem, Constants.WRITE);
                         }
                     }
