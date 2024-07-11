@@ -1,39 +1,31 @@
 package com.c.refactoring.menuexamples;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MenuAccess {
 
-    public void setAuthorizationsInEachMenus(
-            List<MenuItem> menuItemsList, Role[] roles) {
+    public void setAuthorizationsInEachMenus(List<MenuItem> menuItemsList, Role[] roles) {
+        if (isRoleNull(roles)) return;
+        menuItemsList.forEach(menuItem -> setAccessForMenuItems(menuItem, roles));
+    }
 
-        for (MenuItem menuItem : menuItemsList) {
-            if (!isRoleNull(roles)) {
-                for (Role role : roles) {
-                    if (haveReadAccess(role.getName(), menuItem.getReadAccessRole()) && !Constants.WRITE.equals(menuItem.getAccess())) {
-                        setMenuItemPermission(menuItem, Constants.READ);
-                    } else if (haveWriteAccess(role.getName(), menuItem.getWriteAccessRole())) {
-                        setMenuItemPermission(menuItem, Constants.WRITE);
-                    }
-                }
-
-            }
-
+    private void setAccessForMenuItems(MenuItem menuItem, Role[] roles) {
+        if (hasAccess(roles, menuItem.getReadAccessRole())) {
+            setMenuItemPermission(menuItem, Constants.READ);
         }
+        if (hasAccess(roles, menuItem.getWriteAccessRole())) {
+            setMenuItemPermission(menuItem, Constants.WRITE);
+        }
+    }
 
+    private static boolean hasAccess(Role[] roles, String access) {
+        return Arrays.stream(roles).anyMatch(role -> role.getName().equals(access));
     }
 
     private void setMenuItemPermission(MenuItem menuItem, String permission) {
         menuItem.setAccess(permission);
         menuItem.setVisible(true);
-    }
-
-    private boolean haveWriteAccess(String roleType, String writeAccessRole) {
-        return roleType.equals(writeAccessRole);
-    }
-
-    private boolean haveReadAccess(String roleType, String readAccessRole) {
-        return roleType.equals(readAccessRole);
     }
 
     private boolean isRoleNull(Role[] roles) {
