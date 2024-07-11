@@ -9,13 +9,11 @@ public class MenuAccess {
 
         for (MenuItem menuItem : menuItemsList) {
             if (!isRoleNull(roles)) {
-                for (Role role:roles) {
+                for (Role role : roles) {
                     if (haveReadAccess(role.getName(), menuItem.getReadAccessRole()) && !Constants.WRITE.equals(menuItem.getAccess())) {
                         setMenuItemPermission(menuItem, Constants.READ);
-                    } else {
-                        if (haveWriteAccess(role.getName(), menuItem.getWriteAccessRole())) {
-                            setMenuItemPermission(menuItem, Constants.WRITE);
-                        }
+                    } else if (haveWriteAccess(role.getName(), menuItem.getWriteAccessRole())) {
+                        setMenuItemPermission(menuItem, Constants.WRITE);
                     }
                 }
 
